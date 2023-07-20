@@ -7,9 +7,11 @@ SITE = https://skihundepensjonat.no
 DEST = $(USER)@$(HOST):
 
 LINKLINT = linklint -root www
+LINKCHECK = linkchecker --check-extern $(SITE)
 
+default: linklint
 
-default: linklint publish
+all: linklint publish linkcheck
 
 publish:
 	scp -r www $(DEST) 
@@ -22,6 +24,8 @@ linklint:
 	$(LINKLINT)/pad /@
 
 linkcheck:
-	linkchecker --check-extern $(SITE)
-	linkchecker --check-extern $(SITE)/pad
-	linkchecker --check-extern $(SITE)/mobil
+	$(LINKCHECK)/
+	$(LINKCHECK)/pad
+	$(LINKCHECK)/mobil
+
+.PHONY: all default links linklint linkcheck publish
