@@ -6,7 +6,7 @@ SITE = https://skihundepensjonat.no
 
 DEST = $(USER)@$(HOST):
 
-LINKLINT = linklint -no_anchors -root www
+LINKLINT = linklint -root www
 
 
 default: linklint publish
@@ -17,7 +17,7 @@ publish:
 links: linklint linkcheck
 
 linklint:
-	$(LINKLINT) /@
+	$(LINKLINT) -no-anchors /@
 	$(LINKLINT)/mobil /@
 	$(LINKLINT)/pad /@
 
